@@ -1,6 +1,6 @@
 {
     "name": "lupka/laravel-db-sync",
-    "description": "Easily copy your complete database (structure and content) from between environments.",
+    "description": "Easily copy your complete database (structure and content) between environments.",
     "authors": [
         {
             "name": "Alex Chalupka",
