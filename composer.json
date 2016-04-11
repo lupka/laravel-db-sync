@@ -1,0 +1,11 @@
+{
+    "name": "lupka/laravel-db-sync",
+    "description": "Easily copy your complete database (structure and content) from between environments.",
+    "authors": [
+        {
+            "name": "Alex Chalupka",
+            "email": "lupka31@gmail.com"
+        }
+    ],
+    "require": {}
+}
