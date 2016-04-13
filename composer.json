@@ -1,11 +1,21 @@
 {
     "name": "lupka/laravel-db-sync",
     "description": "Easily copy your complete database (structure and content) between environments.",
+    "keywords": ["laravel", "database", "sync", "mysql"],
+    "license": "MIT",
     "authors": [
         {
             "name": "Alex Chalupka",
             "email": "lupka31@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/support": "^5.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Lupka\\LaravelDbSync\\": "src/"
+        }
+    }
 }
