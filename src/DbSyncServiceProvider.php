@@ -25,6 +25,7 @@ class DbSyncServiceProvider extends ServiceProvider
     {
         $this->registerDependencies();
         $this->registerDbSyncCommand();
+        $this->registerDbDumpCommand();
     }
 
 
@@ -37,7 +38,7 @@ class DbSyncServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the db:sync function.
+     * Register the db:sync command.
      */
     private function registerDbSyncCommand()
     {
@@ -46,5 +47,17 @@ class DbSyncServiceProvider extends ServiceProvider
         });
 
         $this->commands('command.lupka.db-sync');
+    }
+
+    /**
+     * Register the db:dump command.
+     */
+    private function registerDbDumpCommand()
+    {
+        $this->app->singleton('command.lupka.db-dump', function ($app) {
+            return $app['Lupka\LaravelDbSync\Commands\DbDumpCommand'];
+        });
+
+        $this->commands('command.lupka.db-dump');
     }
 }
