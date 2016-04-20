@@ -12,7 +12,7 @@ class DbSyncCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'db:sync {connection}';
+    protected $signature = 'db:sync {connection?}';
 
     /**
      * The console command description.
@@ -22,16 +22,8 @@ class DbSyncCommand extends Command
     protected $description = 'Sync a remote Laravel install\'s database';
 
     /**
-     * The drip e-mail service.
-     *
-     * @var DripEmailer
-     */
-    protected $drip;
-
-    /**
      * Create a new command instance.
      *
-     * @param  DripEmailer  $drip
      * @return void
      */
     public function __construct()
@@ -46,9 +38,37 @@ class DbSyncCommand extends Command
      */
     public function handle()
     {
-        SSH::run([
-            'cd /var/www',
-            'git status',
+        $connection = $this->getConnection();
+
+        $this->line('Logging into '.$connection);
+
+        SSH::into($connection)->run([
+            'cd '.$this->getRemoteDirectory($connection),
+            'php artisan',
         ]);
+    }
+
+    /**
+     * Gets connection name from command argument or remote config default
+     *
+     * @return string
+     */
+    protected function getConnection()
+    {
+        $argumentConnection = $this->argument('connection');
+        if(!$argumentConnection){
+            return config('remote.default');
+        }
+    }
+
+    /**
+     * Gets directory of Laravel install on remote machine
+     *
+     * @param string $connection
+     * @return string
+     */
+    protected function getRemoteDirectory($connection)
+    {
+        return config('remote.connections.'.$connection.'.path');
     }
 }
